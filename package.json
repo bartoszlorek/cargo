@@ -1,0 +1,24 @@
+{
+  "name": "cargo",
+  "productName": "Cargo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "set NODE_ENV=development&& electron .",
+    "server": "node ./src/server.js",
+    "build-win": "electron-packager . --overwrite=true --platform=win32 --arch=ia32 --prune=true --out=./dist --asar=true"
+  },
+  "author": "Bartosz Lorek",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^1.7.5",
+    "electron-packager": "^8.7.2",
+    "evilscan": "^1.0.3"
+  },
+  "dependencies": {
+    "drag-drop": "^2.13.2",
+    "socket.io": "^2.0.3",
+    "socket.io-client": "^2.0.3"
+  }
+}

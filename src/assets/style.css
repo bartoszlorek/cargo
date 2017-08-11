@@ -1,0 +1,17 @@
+* {
+    box-sizing: border-box;
+}
+
+html, body, .zone {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: #f2f2f2;
+}
+
+.wrap {
+    padding: 16px;
+}
