@@ -8,8 +8,8 @@ io.on('connection', function (socket) {
 
     socket.on('file.send', function (data) {
         io.emit('file.get', data);
-    })
-})
+    });
+});
 
 server.listen(port);
 

@@ -1,25 +1,41 @@
 const dragDrop = require('drag-drop');
 const uncPath = require('./utils/uncPath');
 const addLink = require('./utils/addLink');
+const netShare = require('./utils/netShare');
 const io = require('socket.io-client');
+const os = require('os');
 
-const uncSpec = {
-    hostname: require('os').hostname(),
-    shares: [
-        '_work',
-        '_WORK_old'
-    ]
-}
+module.exports = function (url, callback) {
+    netShare(shared => {
+        if (!shared) {
+            return alert('there is no shared folders');
+        }
 
-module.exports = function (url) {
-    const socket = io.connect(url, { reconnect: true });
+        const socket = io.connect(url, {
+            reconnect: true
+        });
 
-    dragDrop('body', function (files) {
-        const unc = uncPath(files[0].path, uncSpec);
-        socket.emit('file.send', unc);
-    });
+        const uncSpec = {
+            hostname: os.hostname(),
+            shared
+        }
 
-    socket.on('file.get', function (data) {
-        addLink(data);
+        dragDrop('body', function (files) {
+            const unc = uncPath(files[0].path, uncSpec);
+            if (unc) {
+                socket.emit('file.send', unc);
+
+            } else {
+                alert('file must be in shared folder');
+            }
+        });
+
+        socket.on('file.get', function (data) {
+            addLink(data);
+        });
+
+        if (typeof callback === 'function') {
+            callback();
+        }
     });
 }
