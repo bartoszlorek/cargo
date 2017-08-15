@@ -7,7 +7,7 @@
   "scripts": {
     "start": "set NODE_ENV=development&& electron .",
     "server": "node ./src/server.js",
-    "build-win": "electron-packager . --overwrite=true --platform=win32 --arch=ia32 --prune=true --out=./dist --asar=true"
+    "build-win": "electron-packager . --overwrite=true --platform=win32 --arch=ia32 --prune=true --out=./dist --asar=true --ignore=dist"
   },
   "author": "Bartosz Lorek",
   "license": "MIT",

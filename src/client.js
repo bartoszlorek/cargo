@@ -3,7 +3,8 @@ const uncPath = require('./utils/uncPath');
 const addLink = require('./utils/addLink');
 const netShare = require('./utils/netShare');
 const io = require('socket.io-client');
-const os = require('os');
+
+const hostname = require('os').hostname();
 
 module.exports = function (url, callback) {
     netShare(shared => {
@@ -12,11 +13,14 @@ module.exports = function (url, callback) {
         }
 
         const socket = io.connect(url, {
-            reconnect: true
+            reconnect: true,
+            query: {
+                hostname
+            }
         });
 
         const uncSpec = {
-            hostname: os.hostname(),
+            hostname,
             shared
         }
 
